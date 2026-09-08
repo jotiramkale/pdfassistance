@@ -1,4 +1,9 @@
-Flask>=3.0,<4
-pypdf>=6,<7
-python-dotenv>=1,<2
-groq>=0.15,<1
+Flask
+pypdf
+python-dotenv
+groq
+sentence-transformers
+chromadb
+langchain-text-splitters
+langchain-core
+langchain-groq
