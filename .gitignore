@@ -9,7 +9,7 @@ __pycache__/
 venv/
 
 # Local application data
-data/
+uploads/
 *.pdf
 
 # IDE and OS files
