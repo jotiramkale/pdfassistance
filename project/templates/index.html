@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            margin: 20px;
+            color: #222;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            width: 500px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: 1px solid #333;
+            background: #f4f4f4;
+            cursor: pointer;
+        }
+
+        .answer-box {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+        }
+
+        .message {
+            margin: 10px 0 20px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Assistant</h1>
+
+        <form action="/" method="post" enctype="multipart/form-data" id="uploadForm">
+            <input type="file" name="pdf" accept="application/pdf" id="pdfFile">
+        </form>
+
+        <form action="/ask" method="post">
+            <input type="text" name="question" placeholder="Ask Question">
+            <button type="submit">Get Answer</button>
+        </form>
+
+        <p class="message">{{ message }}</p>
+
+        <div class="answer-box">
+            <strong>Answer:</strong>
+            <div>{{ answer }}</div>
+        </div>
+    </div>
+
+    <script>
+        var fileInput = document.getElementById('pdfFile');
+        var uploadForm = document.getElementById('uploadForm');
+
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length > 0) {
+                uploadForm.submit();
+            }
+        });
+    </script>
+</body>
+</html>
