@@ -26,10 +26,11 @@ from langchain_groq import ChatGroq
 # ==========================================
 # CONFIG
 # ==========================================
+from dotenv import load_dotenv
+load_dotenv()
 
-GROQ_API_KEY="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"
-
-MODEL_NAME="openai/gpt-oss-120b"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+MODEL_NAME = os.getenv("GROQ_MODEL")
 
 UPLOAD_FOLDER="uploads"
 
@@ -57,17 +58,24 @@ llm = ChatGroq(
 # EMBEDDING MODEL
 # ==========================================
 
-embedding_model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
-)
+embedding_model = None
+
+def get_embedding_model():
+    global embedding_model
+
+    if embedding_model is None:
+        embedding_model = SentenceTransformer(
+            "all-MiniLM-L6-v2"
+        )
+
+    return embedding_model
 
 
 # ==========================================
 # CHROMADB
 # ==========================================
 
-chroma_client = chromadb.Client()
-
+chroma_client = chromadb.PersistentClient(path="./data/chroma")
 collection = None
 
 
@@ -122,7 +130,7 @@ def create_vector_database(chunks):
         name="pdf_assistant"
     )
 
-    embeddings = embedding_model.encode(chunks)
+    get_embedding_model().encode(chunks)
 
     for i, chunk in enumerate(chunks):
 
